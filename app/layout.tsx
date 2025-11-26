@@ -25,13 +25,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-zinc-50`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen w-full bg-background`}
       >
-        <header>header</header>
+        <header className="max-w-7xl mx-auto w-full p-4">
+          <h1 className="text-4xl font-bold mb-2">
+            Графіки відключень електроенергії в м. Запоріжжя
+          </h1>
+          <p className="">Real-time monitoring of 12 distribution queues</p>
+        </header>
 
         <main className="flex-1">{children}</main>
 
-        <footer>footer</footer>
+        <footer className="max-w-7xl mx-auto w-full p-4">footer</footer>
       </body>
     </html>
   );

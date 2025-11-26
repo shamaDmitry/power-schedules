@@ -18,8 +18,12 @@ export type RawGpvData = RawGpvRow[];
 
 export type TimeRangeString = `${string} - ${string}`;
 export type GroupKey = `${number}.${number}`;
-export type ScheduleObj = {
+export type ScheduleRawData = {
   title: string;
 } & {
+  [key in GroupKey]: TimeRangeString[];
+};
+
+export type AnalyzedData = {
   [key in GroupKey]: TimeRangeString[];
 };

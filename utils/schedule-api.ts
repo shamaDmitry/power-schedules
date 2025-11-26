@@ -1,4 +1,5 @@
-// УТИЛІТИ
+import { GroupKey, ScheduleRawData } from "@/types";
+
 function toMinutes(timeStr: string): number {
   const [h, m] = timeStr.split(":").map(Number);
   return h * 60 + m;
@@ -15,11 +16,11 @@ function getTodayMinutes() {
 }
 
 // ГОЛОВНА ФУНКЦІЯ
-export function analyzeQueue(
-  schedule: Record<string, string[]>,
-  queue: string
-) {
+export function analyzeQueue(schedule: ScheduleRawData, queue: GroupKey) {
   const ranges = schedule[queue] || [];
+
+  console.log("ranges", ranges);
+
   const minuteRanges = ranges.map(parseRange);
 
   const now = getTodayMinutes();
@@ -81,3 +82,10 @@ export function analyzeQueue(
         : null,
   };
 }
+
+export const getScheduleData = async () => {
+  const res = await fetch("/api/schedule", { cache: "no-store" });
+  const data = await res.json();
+
+  return data.schedule;
+};

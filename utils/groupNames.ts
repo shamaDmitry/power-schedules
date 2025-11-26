@@ -1,3 +1,5 @@
+import { GroupKey } from "@/types";
+
 export const GROUP_NAMES_MAP = {
   1: "1.1",
   2: "1.2",
@@ -13,7 +15,7 @@ export const GROUP_NAMES_MAP = {
   12: "6.2",
 };
 
-export const GROUP_NAMES = [
+export const GROUP_NAMES: GroupKey[] = [
   "1.1",
   "1.2",
   "2.1",
