@@ -19,8 +19,6 @@ function getTodayMinutes() {
 export function analyzeQueue(schedule: ScheduleRawData, queue: GroupKey) {
   const ranges = schedule[queue] || [];
 
-  console.log("ranges", ranges);
-
   const minuteRanges = ranges.map(parseRange);
 
   const now = getTodayMinutes();

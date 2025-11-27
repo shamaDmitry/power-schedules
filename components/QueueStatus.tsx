@@ -1,14 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { QueueInfo } from "@/types";
 import { Power, AlertTriangle, Clock } from "lucide-react";
-
-export interface QueueInfo {
-  isOffNow: boolean;
-  outagesCount: number;
-  hoursOff: number;
-  hoursOn: number;
-  nextEvent: { inMinutes: number; type: string } | null;
-}
 
 export default function QueueStatus({
   queue,
@@ -40,7 +33,7 @@ export default function QueueStatus({
               className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold ${
                 info.isOffNow
                   ? "bg-red-500 text-red-950"
-                  : "bg-green-500 text-green-300"
+                  : "bg-green-500 text-green-950"
               }`}
             >
               <Power className="size-4" />

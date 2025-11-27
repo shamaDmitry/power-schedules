@@ -1,88 +1,69 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
-import { Spinner } from "@/components/ui/spinner";
-import { analyzeQueue, getScheduleData } from "@/utils/schedule-api";
-import { GROUP_NAMES } from "@/utils/groupNames";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import QueueStatus, { QueueInfo } from "@/components/QueueStatus";
-import { AnalyzedData, ScheduleRawData } from "@/types";
+import { useEffect } from "react";
+import QueueStatus from "@/components/QueueStatus";
+import { QueueInfo, QueueStates } from "@/types";
+import { useQueueStore } from "@/store/useQueueStore";
+import QueueSelector from "@/components/QueueSelector";
+import { Heading } from "@/components/typography/Heading";
+import QueueDetailCard from "./QueueDetailCard";
 
 export default function Schedule() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [data, setData] = useState<ScheduleRawData | null>(null);
-  const [selected, setSelected] = useState("1.1");
+  const { data, fetchData, selectedQueue, setSelectedQueue, analyzedData } =
+    useQueueStore();
 
   useEffect(() => {
-    getScheduleData().then((data) => {
-      setData(data);
-      setIsLoading(false);
-    });
+    fetchData();
 
-    const interval = setInterval(getScheduleData, 1800000); // 30min
+    const interval = setInterval(fetchData, 1800000); // 30min
 
     return () => clearInterval(interval);
-  }, []);
-
-  const analyzedData = useMemo(() => {
-    if (!data || Object.keys(data).length === 0) return {};
-
-    return GROUP_NAMES.reduce((acc, group) => {
-      acc[group] = analyzeQueue(data, group);
-
-      return acc;
-    }, {} as Record<string, ReturnType<typeof analyzeQueue>>);
-  }, [data]);
-
-  if (isLoading) {
-    return (
-      <div className="p-5 w-full">
-        <Spinner className="mx-auto size-6" />
-      </div>
-    );
-  }
+  }, [fetchData]);
 
   if (!data) return <div>No data</div>;
 
-  console.log("analyzedData", analyzedData);
+  const queueStates = Object.entries(analyzedData).reduce(
+    (acc, [queue, info]) => {
+      acc[queue] = {
+        isOn: !info.isOffNow,
+        isSelected: selectedQueue === queue,
+        queue: queue,
+      };
+
+      return acc;
+    },
+    {} as QueueStates
+  );
 
   return (
     <div className="w-full">
-      <h1 className="mb-5">{data.title}</h1>
-
-      <div className="flex gap-2 mb-4 flex-wrap">
-        {GROUP_NAMES.map((group, index) => {
-          return (
-            <Button
-              variant="ghost"
-              key={index}
-              onClick={() => {
-                setSelected(group);
-              }}
-              className={cn({
-                "bg-destructive": analyzedData[group]?.isOffNow,
-                "bg-green-500": !analyzedData[group]?.isOffNow,
-                "ring-2": selected === group,
-              })}
-            >
-              {group}
-            </Button>
-          );
-        })}
+      <div className="flex gap-4 items-center mb-5 justify-between flex-wrap">
+        <Heading level="h2" className="">
+          {data.title}
+        </Heading>
       </div>
 
-      <pre>{JSON.stringify(analyzedData[selected], null, 2)}</pre>
+      <QueueSelector
+        selectedQueue={selectedQueue}
+        onQueueChange={setSelectedQueue}
+        queueStates={queueStates}
+      />
 
-      <QueueStatus
+      {/* <QueueStatus
         className="mb-8"
-        info={analyzedData[selected] as QueueInfo}
-        queue={selected}
+        info={analyzedData[selectedQueue] as QueueInfo}
+        queue={selectedQueue}
+      /> */}
+
+      <QueueDetailCard
+        queue={selectedQueue}
+        info={analyzedData[selectedQueue] as QueueInfo}
       />
 
       <div className="mb-8">
-        <h2 className="text-2xl font-bold  mb-4">Queue Details</h2>
+        <Heading level={"h3"} className="text-2xl font-bold  mb-4">
+          Деталі черг
+        </Heading>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {Object.entries(analyzedData).map(([queue, info]) => {

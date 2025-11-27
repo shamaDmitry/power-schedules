@@ -25,5 +25,29 @@ export type ScheduleRawData = {
 };
 
 export type AnalyzedData = {
-  [key in GroupKey]: TimeRangeString[];
+  [key in GroupKey]: QueueInfo;
 };
+
+export interface QueueInfo {
+  isOffNow: boolean;
+  outagesCount: number;
+  hoursOff: number;
+  hoursOn: number;
+  nextEvent: { inMinutes: number; type: string } | null;
+}
+
+// queueStates?: Record<
+//   string,
+//   { isOn: boolean; isSelected: boolean; queue: string }
+// >;
+
+export interface QueueStates {
+  [key: string]: { isOn: boolean; isSelected: boolean; queue: string };
+}
+
+export interface Stats {
+  totalQueues: number;
+  activeQueues: number;
+  inactiveQueues: number;
+  totalOutages: number;
+}
