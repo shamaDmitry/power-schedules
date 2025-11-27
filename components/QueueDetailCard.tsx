@@ -12,14 +12,16 @@ import {
   Tooltip,
 } from "recharts";
 import CountdownTimer from "./Countdown";
+import { useQueueStore } from "@/store/useQueueStore";
+import { QueueInfo } from "@/types";
 
-interface QueueInfo {
-  isOffNow: boolean;
-  outagesCount: number;
-  hoursOff: number;
-  hoursOn: number;
-  nextEvent: { inMinutes: number; type: string } | null;
-}
+// export interface QueueInfo {
+//   isOffNow: boolean;
+//   outagesCount: number;
+//   hoursOff: number;
+//   hoursOn: number;
+//   nextEvent: { inMinutes: number; type: string } | null;
+// }
 
 export default function QueueDetailCard({
   queue,
@@ -28,6 +30,8 @@ export default function QueueDetailCard({
   queue: string;
   info: QueueInfo;
 }) {
+  const { fetchData } = useQueueStore();
+
   const totalHours = info.hoursOn + info.hoursOff;
   const onPercentage = ((info.hoursOn / totalHours) * 100).toFixed(1);
 
@@ -151,7 +155,12 @@ export default function QueueDetailCard({
                     {info.nextEvent.inMinutes} minutes
                   </p>
 
-                  <CountdownTimer remainingTime={info.nextEvent.inMinutes} />
+                  <CountdownTimer
+                    remainingTime={info.nextEvent.inMinutes}
+                    onComplete={() => {
+                      fetchData();
+                    }}
+                  />
                 </div>
               </div>
             </div>

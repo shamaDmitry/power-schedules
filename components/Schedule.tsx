@@ -22,18 +22,20 @@ export default function Schedule() {
 
   if (!data) return <div>No data</div>;
 
-  const queueStates = Object.entries(analyzedData).reduce(
-    (acc, [queue, info]) => {
-      acc[queue] = {
-        isOn: !info.isOffNow,
-        isSelected: selectedQueue === queue,
-        queue: queue,
-      };
+  const queueStates = Object.entries(
+    (analyzedData ?? {}) as Record<string, QueueInfo>
+  ).reduce((acc, [queue, info]) => {
+    acc[queue] = {
+      isOn: !info.isOffNow,
+      isSelected: selectedQueue === queue,
+      queue: queue,
+    };
 
-      return acc;
-    },
-    {} as QueueStates
-  );
+    return acc;
+  }, {} as QueueStates);
+
+  console.log("analyzedData", analyzedData);
+  console.log("selectedQueue", selectedQueue);
 
   return (
     <div className="w-full">
@@ -49,16 +51,12 @@ export default function Schedule() {
         queueStates={queueStates}
       />
 
-      {/* <QueueStatus
-        className="mb-8"
-        info={analyzedData[selectedQueue] as QueueInfo}
-        queue={selectedQueue}
-      /> */}
-
-      <QueueDetailCard
-        queue={selectedQueue}
-        info={analyzedData[selectedQueue] as QueueInfo}
-      />
+      {analyzedData && (
+        <QueueDetailCard
+          queue={selectedQueue}
+          info={analyzedData[selectedQueue]}
+        />
+      )}
 
       <div className="mb-8">
         <Heading level={"h3"} className="text-2xl font-bold  mb-4">

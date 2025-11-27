@@ -17,8 +17,6 @@ export default function StatsOverview() {
   const { stats } = useQueueStore();
   if (!stats) return null;
 
-  console.log("stats", stats);
-
   const statItems = [
     {
       label: "Кількість черг",
