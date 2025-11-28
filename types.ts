@@ -36,11 +36,6 @@ export interface QueueInfo {
   nextEvent: { inMinutes: number; type: string } | null;
 }
 
-// queueStates?: Record<
-//   string,
-//   { isOn: boolean; isSelected: boolean; queue: string }
-// >;
-
 export interface QueueStates {
   [key: string]: { isOn: boolean; isSelected: boolean; queue: string };
 }
@@ -50,4 +45,25 @@ export interface Stats {
   activeQueues: number;
   inactiveQueues: number;
   totalOutages: number;
+}
+
+export type EventType = "on" | "off";
+
+export interface NextEvent {
+  inMinutes: number;
+  type: EventType;
+}
+
+export interface OutageGroup {
+  isOffNow: boolean;
+  outagesCount: number;
+  hoursOff: number;
+  hoursOn: number;
+  nextEvent: NextEvent | null;
+}
+
+export type OutageSchedule = Record<string, OutageGroup>;
+
+export interface Schedule {
+  [key: string]: OutageGroup;
 }

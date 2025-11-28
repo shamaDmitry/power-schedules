@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { QueueInfo } from "@/types";
+import { formatMinutes } from "@/utils/formatMinutes";
 import { Power, AlertTriangle, Clock } from "lucide-react";
 
 export default function QueueStatus({
@@ -29,12 +30,15 @@ export default function QueueStatus({
           {/* Queue Name and Status */}
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-bold ">Черга {queue}</h3>
+
             <div
-              className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold ${
-                info.isOffNow
-                  ? "bg-red-500 text-red-950"
-                  : "bg-green-500 text-green-950"
-              }`}
+              className={cn(
+                "flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold",
+                {
+                  "bg-error/10 text-error": info.isOffNow,
+                  "bg-success/10 text-success": !info.isOffNow,
+                }
+              )}
             >
               <Power className="size-4" />
 
@@ -46,43 +50,46 @@ export default function QueueStatus({
 
           {/* Hours Info */}
           <div className="grid grid-cols-2 gap-2 text-sm">
-            <div className="bg-blue-500/10 p-2 rounded">
-              <p className="text-slate-400 text-xs">Годин увімкнено</p>
-              <p className="text-blue-300 font-semibold">{info.hoursOn}h</p>
+            <div className="bg-success/10 p-2 rounded">
+              <p className="text-xs mb-1 text-muted-foreground">
+                Годин увімкнено
+              </p>
+              <p className="text-success font-semibold">{info.hoursOn}h</p>
             </div>
 
-            <div className="bg-red-500/10 p-2 rounded">
-              <p className="text-slate-400 text-xs">Годин вимкнено</p>
-              <p className="text-red-300 font-semibold">{info.hoursOff}h</p>
+            <div className="bg-error/10 p-2 rounded">
+              <p className="text-xs mb-1 text-muted-foreground">
+                Годин вимкнено
+              </p>
+              <p className="text-error font-semibold">{info.hoursOff}h</p>
             </div>
           </div>
 
           {/* Outages */}
-          <div className="flex items-center gap-2 bg-yellow-900 p-2 rounded text-sm">
-            <AlertTriangle className="w-4 h-4 text-yellow-400" />
+          <div className="flex items-center gap-2 bg-accent text-accent-foreground p-2 rounded text-sm">
+            <AlertTriangle className="w-4 h-4 text-accent-foreground" />
 
             <div>
-              <p className="text-slate-400 text-sm">Кількість відключень</p>
-              <p className="text-yellow-300 font-semibold">
-                {info.outagesCount}
-              </p>
+              <p className="text-sm">Кількість відключень</p>
+              <p className="font-semibold">{info.outagesCount}</p>
             </div>
           </div>
 
           {/* Next Event */}
           {info.nextEvent && (
-            <div className="flex items-center gap-2 bg-slate-700 p-2 rounded text-sm">
-              <Clock className="w-4 h-4 text-slate-300" />
+            <div className="flex items-center gap-2 bg-primary p-2 rounded text-sm">
+              <Clock className="w-4 h-4 text-primary-foreground" />
 
-              <div>
-                <p className="text-slate-400 text-sm flex gap-1.5">
+              <div className="text-primary-foreground">
+                <p className="text-sm flex gap-1.5">
                   Наступне:
                   <span className="font-bold">
                     {statusMap[info.nextEvent.type as keyof typeof statusMap]}
                   </span>
                 </p>
-                <p className="text-slate-200 font-semibold">
-                  {info.nextEvent.inMinutes}m
+
+                <p className="font-semibold">
+                  {formatMinutes(info.nextEvent.inMinutes)}
                 </p>
               </div>
             </div>

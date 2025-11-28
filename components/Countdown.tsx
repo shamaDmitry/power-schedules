@@ -1,22 +1,30 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import React, { useState, useEffect, useMemo } from "react";
+import { Heading } from "./typography/Heading";
 
 interface CountdownTimerProps {
-  remainingTime: number; // Required: Total duration in minutes
-  showHours?: boolean; // Optional: Show hours (HH)
-  showMinutes?: boolean; // Optional: Show minutes (MM)
-  showSeconds?: boolean; // Optional: Show seconds (SS)
-  showMilliseconds?: boolean; // Optional: Show milliseconds (XXX)
+  className?: string;
+  label?: string;
+  event: string;
+  remainingTime: number;
+  showHours?: boolean;
+  showMinutes?: boolean;
+  showSeconds?: boolean;
+  showMilliseconds?: boolean;
   onComplete?: () => void;
 }
 
 const CountdownTimer: React.FC<CountdownTimerProps> = ({
+  className,
+  label = "Лишилося часу",
+  event,
   remainingTime,
   showHours = true,
   showMinutes = true,
   showSeconds = true,
-  showMilliseconds = false, // Defaults to false
+  showMilliseconds = false,
   onComplete,
 }) => {
   // Calculate total starting time in milliseconds (min * 60 * 1000)
@@ -24,10 +32,6 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
 
   // State to track remaining time in milliseconds
   const [timeLeft, setTimeLeft] = useState(totalInitialMilliseconds);
-
-  // ---------------------------------------------
-  // Time Calculation Logic
-  // ---------------------------------------------
 
   // Convert milliseconds to display components
   const ms = timeLeft % 1000;
@@ -41,10 +45,6 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
   // For milliseconds, we pad to three digits
   const formatTime = (value: number, padLength: number = 2) =>
     value.toString().padStart(padLength, "0");
-
-  // ---------------------------------------------
-  // Display Formatting (Memoized for performance)
-  // ---------------------------------------------
 
   const timeDisplay = useMemo(() => {
     const timeParts: string[] = [];
@@ -87,10 +87,6 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
     showMilliseconds,
   ]);
 
-  // ---------------------------------------------
-  // Effect for Ticking and Cleanup
-  // ---------------------------------------------
-
   useEffect(() => {
     // Stop the interval if time is finished
     if (timeLeft <= 0) {
@@ -114,43 +110,32 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
     setTimeLeft(totalInitialMilliseconds);
   }, [totalInitialMilliseconds]);
 
-  // ---------------------------------------------
-  // Dynamic Styling
-  // ---------------------------------------------
-
   const isLowTime = totalSeconds < 60; // Less than 1 minute (using totalSeconds here)
   const isFinished = timeLeft === 0;
 
   return (
     <div
-      className={`
-      flex flex-col items-center justify-center 
-      p-6 rounded-xl shadow-lg border-2 
-      transition-colors duration-300 w-full max-w-lg mx-auto
-      ${
-        isFinished
-          ? "bg-red-50 border-red-200"
-          : isLowTime
-          ? "bg-orange-50 border-orange-200"
-          : "bg-white border-gray-100 dark:bg-slate-800 dark:border-slate-700"
-      }
-    `}
+      className={cn(
+        "flex flex-col items-center justify-center p-4 rounded-xl shadow-lg border-2 transition-colors duration-300 w-full mx-auto bg-white border-gray-100 dark:bg-slate-800 dark:border-slate-700",
+        className
+      )}
     >
-      <h3 className="text-sm uppercase tracking-wider text-gray-500 font-semibold mb-2">
-        {isFinished ? "Time's Up!" : "Time Remaining"}
-      </h3>
+      <Heading
+        level={"h3"}
+        className={cn("text-sm uppercase tracking-wide  font-semibold mb-2", {
+          "text-success": event === "on",
+          "text-error": event === "off",
+        })}
+      >
+        {isFinished
+          ? "Час вийшов"
+          : `${label} до ${event === "on" ? "включення" : "вимкнення"}`}
+      </Heading>
 
       <div
-        className={`
-        text-6xl font-mono font-bold tracking-tight
-        ${
-          isFinished
-            ? "text-red-500"
-            : isLowTime
-            ? "text-orange-500"
-            : "text-gray-900 dark:text-white"
-        }
-      `}
+        className={cn("text-3xl font-mono font-bold tracking-tight", {
+          "animate-pulse": isLowTime,
+        })}
       >
         {timeDisplay}
       </div>
@@ -159,11 +144,15 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
       {totalInitialMilliseconds > 0 && (
         <div className="w-full bg-gray-200 rounded-full h-2.5 mt-4 dark:bg-gray-700 overflow-hidden">
           <div
-            className={`h-2.5 rounded-full transition-all duration-1000 ease-linear ${
-              isLowTime ? "bg-orange-500" : "bg-blue-600"
-            }`}
             style={{ width: `${(timeLeft / totalInitialMilliseconds) * 100}%` }}
-          ></div>
+            className={cn(
+              "h-2.5 rounded-full transition-all duration-1000 ease-linear",
+              {
+                "bg-success": event === "on",
+                "bg-error": event === "off",
+              }
+            )}
+          />
         </div>
       )}
     </div>

@@ -5,52 +5,58 @@
 
 :root {
   /* Light mode - Modern Soft Pastel Palette */
-  --background: 250 40% 96%;
-  --foreground: 220 20% 18%;
-  --card: 0 0% 100%;
-  --card-foreground: 220 20% 18%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 220 20% 18%;
+  --background: hsl(250 40% 96%);
+  --foreground: hsl(220 20% 18%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(220 20% 18%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(220 20% 18%);
 
   /* Pastel Primary - Soft Lavender-Blue */
-  --primary: 265 75% 72%;
-  --primary-foreground: 0 0% 100%;
+  --primary: hsl(265 75% 72%);
+  --primary-foreground: hsl(0 0% 100%);
 
   /* Pastel Secondary - Soft Mint Green */
-  --secondary: 160 65% 72%;
-  --secondary-foreground: 220 20% 18%;
+  --secondary: hsl(160 65% 72%);
+  --secondary-foreground: hsl(220 20% 18%);
+
+  --success: hsl(120, 100%, 25%);
+  --success-foreground: hsl(220 20% 18%);
+
+  --error: hsl(0, 100%, 58%);
+  --error-foreground: hsl(0 0% 100%);
 
   /* Muted - Soft Gray */
-  --muted: 220 15% 88%;
-  --muted-foreground: 220 12% 48%;
+  --muted: hsl(220 15% 88%);
+  --muted-foreground: hsl(220 12% 48%);
 
   /* Accent - Soft Coral Peach */
-  --accent: 35 95% 75%;
-  --accent-foreground: 220 20% 18%;
+  --accent: hsl(35 95% 75%);
+  --accent-foreground: hsl(220 20% 18%);
 
   /* Destructive - Soft Red/Coral */
-  --destructive: 355 85% 72%;
-  --destructive-foreground: 0 0% 100%;
+  --destructive: hsl(355 85% 72%);
+  --destructive-foreground: hsl(0 0% 100%);
 
-  --border: 220 13% 91%;
-  --input: 220 13% 95%;
-  --ring: 265 75% 72%;
+  --border: hsl(220 13% 91%);
+  --input: hsl(220 13% 95%);
+  --ring: hsl(265 75% 72%);
 
   /* Chart Colors - Beautiful Pastel Set */
-  --chart-1: 265 75% 72%; /* Pastel Purple-Blue */
-  --chart-2: 160 65% 72%; /* Pastel Mint Green */
-  --chart-3: 35 95% 75%; /* Pastel Peach */
-  --chart-4: 355 85% 72%; /* Pastel Coral Red */
-  --chart-5: 195 75% 72%; /* Pastel Sky Blue */
+  --chart-1: hsl(265 75% 72%); /* Pastel Purple-Blue */
+  --chart-2: hsl(160 65% 72%); /* Pastel Mint Green */
+  --chart-3: hsl(35 95% 75%); /* Pastel Peach */
+  --chart-4: hsl(355 85% 72%); /* Pastel Coral Red */
+  --chart-5: hsl(195 75% 72%); /* Pastel Sky Blue */
 
-  --sidebar: 250 40% 96%;
-  --sidebar-foreground: 220 20% 18%;
-  --sidebar-primary: 265 75% 72%;
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 35 95% 75%;
-  --sidebar-accent-foreground: 220 20% 18%;
-  --sidebar-border: 220 13% 91%;
-  --sidebar-ring: 265 75% 72%;
+  --sidebar: hsl(250 40% 96%);
+  --sidebar-foreground: hsl(220 20% 18%);
+  --sidebar-primary: hsl(265 75% 72%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(35 95% 75%);
+  --sidebar-accent-foreground: hsl(220 20% 18%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(265 75% 72%);
 
   --font-sans: Inter, sans-serif;
   --font-serif: Source Serif 4, serif;
@@ -58,96 +64,110 @@
   --radius: 0.75rem;
 }
 
-.dark {
-  /* Dark mode - Sophisticated Pastel Palette */
-  --background: 220 18% 14%;
-  --foreground: 220 14% 96%;
-  --card: 220 20% 20%;
-  --card-foreground: 220 14% 96%;
-  --popover: 220 20% 22%;
-  --popover-foreground: 220 14% 96%;
-
-  /* Pastel Primary - Soft Lavender-Blue */
-  --primary: 265 72% 65%;
-  --primary-foreground: 220 18% 14%;
-
-  /* Pastel Secondary - Soft Mint Green */
-  --secondary: 160 60% 65%;
-  --secondary-foreground: 220 14% 96%;
-
-  /* Muted - Soft Gray */
-  --muted: 220 12% 42%;
-  --muted-foreground: 220 12% 72%;
-
-  /* Accent - Soft Coral Peach */
-  --accent: 35 90% 68%;
-  --accent-foreground: 220 18% 14%;
-
-  /* Destructive - Soft Red/Coral */
-  --destructive: 355 82% 68%;
-  --destructive-foreground: 0 0% 100%;
-
-  --border: 220 18% 28%;
-  --input: 220 18% 26%;
-  --ring: 265 72% 65%;
-
-  /* Chart Colors - Beautiful Pastel Set (adjusted for dark) */
-  --chart-1: 265 72% 65%; /* Pastel Purple-Blue */
-  --chart-2: 160 60% 65%; /* Pastel Mint Green */
-  --chart-3: 35 90% 68%; /* Pastel Peach */
-  --chart-4: 355 82% 68%; /* Pastel Coral Red */
-  --chart-5: 195 72% 65%; /* Pastel Sky Blue */
-
-  --sidebar: 220 18% 16%;
-  --sidebar-foreground: 220 14% 96%;
-  --sidebar-primary: 265 72% 65%;
-  --sidebar-primary-foreground: 220 18% 14%;
-  --sidebar-accent: 35 90% 68%;
-  --sidebar-accent-foreground: 220 18% 14%;
-  --sidebar-border: 220 18% 28%;
-  --sidebar-ring: 265 72% 65%;
-}
-
 @theme inline {
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-  --color-popover: hsl(var(--popover));
-  --color-popover-foreground: hsl(var(--popover-foreground));
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
-  --color-chart-1: hsl(var(--chart-1));
-  --color-chart-2: hsl(var(--chart-2));
-  --color-chart-3: hsl(var(--chart-3));
-  --color-chart-4: hsl(var(--chart-4));
-  --color-chart-5: hsl(var(--chart-5));
+
+  /* HSL wrapper removed here because it's now in the variable */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: hsl(var(--sidebar));
-  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
-  --color-sidebar-primary: hsl(var(--sidebar-primary));
-  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
-  --color-sidebar-accent: hsl(var(--sidebar-accent));
-  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
-  --color-sidebar-border: hsl(var(--sidebar-border));
-  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+.dark {
+  /* Dark mode - Sophisticated Pastel Palette */
+  --background: hsl(220 18% 14%);
+  --foreground: hsl(220 14% 96%);
+  --card: hsl(220 20% 20%);
+  --card-foreground: hsl(220 14% 96%);
+  --popover: hsl(220 20% 22%);
+  --popover-foreground: hsl(220 14% 96%);
+
+  /* Pastel Primary - Soft Lavender-Blue */
+  --primary: hsl(265 72% 65%);
+  --primary-foreground: hsl(220 18% 14%);
+
+  /* Pastel Secondary - Soft Mint Green */
+  --secondary: hsl(160 60% 65%);
+  --secondary-foreground: hsl(220 14% 96%);
+
+  --success: hsl(120 70% 50%);
+  --success-foreground: hsl(220 14% 96%);
+
+  --error: hsl(355 85% 72%);
+  --error-foreground: hsl(0 0% 100%);
+
+  /* Muted - Soft Gray */
+  --muted: hsl(220 12% 42%);
+  --muted-foreground: hsl(220 12% 72%);
+
+  /* Accent - Soft Coral Peach */
+  --accent: hsl(35 90% 68%);
+  --accent-foreground: hsl(220 18% 14%);
+
+  /* Destructive - Soft Red/Coral */
+  --destructive: hsl(355 82% 68%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --border: hsl(220 18% 28%);
+  --input: hsl(220 18% 26%);
+  --ring: hsl(265 72% 65%);
+
+  /* Chart Colors - Beautiful Pastel Set (adjusted for dark) */
+  --chart-1: hsl(265 72% 65%); /* Pastel Purple-Blue */
+  --chart-2: hsl(160 60% 65%); /* Pastel Mint Green */
+  --chart-3: hsl(35 90% 68%); /* Pastel Peach */
+  --chart-4: hsl(355 82% 68%); /* Pastel Coral Red */
+  --chart-5: hsl(195 72% 65%); /* Pastel Sky Blue */
+
+  --sidebar: hsl(220 18% 16%);
+  --sidebar-foreground: hsl(220 14% 96%);
+  --sidebar-primary: hsl(265 72% 65%);
+  --sidebar-primary-foreground: hsl(220 18% 14%);
+  --sidebar-accent: hsl(35 90% 68%);
+  --sidebar-accent-foreground: hsl(220 18% 14%);
+  --sidebar-border: hsl(220 18% 28%);
+  --sidebar-ring: hsl(265 72% 65%);
 }
 
 @layer base {

@@ -4,17 +4,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useQueueStore } from "@/store/useQueueStore";
 import { Activity, AlertCircle, Zap, TrendingUp } from "lucide-react";
 
-interface StatsProps {
-  stats: {
-    totalQueues: number;
-    activeQueues: number;
-    inactiveQueues: number;
-    totalOutages: number;
-  };
-}
-
 export default function StatsOverview() {
   const { stats } = useQueueStore();
+
   if (!stats) return null;
 
   const statItems = [
@@ -45,9 +37,10 @@ export default function StatsOverview() {
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 w-full">
+    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 w-full">
       {statItems.map((stat) => {
         const Icon = stat.icon;
+
         return (
           <Card key={stat.label} className="border-border">
             <CardContent className="pt-6">

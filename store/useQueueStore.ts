@@ -55,6 +55,7 @@ export const useQueueStore = create<QueueStore>()((set, get) => ({
         ),
       },
     });
+
     set({ analyzedData: analyzed });
   },
 

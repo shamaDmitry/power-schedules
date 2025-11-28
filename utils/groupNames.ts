@@ -15,7 +15,7 @@ export const GROUP_NAMES_MAP = {
   12: "6.2",
 };
 
-export const GROUP_NAMES: GroupKey[] = [
+export const GROUP_NAMES = [
   "1.1",
   "1.2",
   "2.1",

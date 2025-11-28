@@ -1,0 +1,176 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Light mode - Modern Soft Pastel Palette */
+  --background: 250 40% 96%;
+  --foreground: 220 20% 18%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 20% 18%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 20% 18%;
+
+  /* Pastel Primary - Soft Lavender-Blue */
+  --primary: 265 75% 72%;
+  --primary-foreground: 0 0% 100%;
+
+  /* Pastel Secondary - Soft Mint Green */
+  --secondary: 160 65% 72%;
+  --secondary-foreground: 220 20% 18%;
+
+  --success: 120, 100%, 25%;
+  --success-foreground: 220 20% 18%;
+
+  --error: 0, 100%, 58%;
+  --error-foreground: 0 0% 100%;
+
+  /* Muted - Soft Gray */
+  --muted: 220 15% 88%;
+  --muted-foreground: 220 12% 48%;
+
+  /* Accent - Soft Coral Peach */
+  --accent: 35 95% 75%;
+  --accent-foreground: 220 20% 18%;
+
+  /* Destructive - Soft Red/Coral */
+  --destructive: 355 85% 72%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 220 13% 91%;
+  --input: 220 13% 95%;
+  --ring: 265 75% 72%;
+
+  /* Chart Colors - Beautiful Pastel Set */
+  --chart-1: 265 75% 72%; /* Pastel Purple-Blue */
+  --chart-2: 160 65% 72%; /* Pastel Mint Green */
+  --chart-3: 35 95% 75%; /* Pastel Peach */
+  --chart-4: 355 85% 72%; /* Pastel Coral Red */
+  --chart-5: 195 75% 72%; /* Pastel Sky Blue */
+
+  --sidebar: 250 40% 96%;
+  --sidebar-foreground: 220 20% 18%;
+  --sidebar-primary: 265 75% 72%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 35 95% 75%;
+  --sidebar-accent-foreground: 220 20% 18%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 265 75% 72%;
+
+  --font-sans: Inter, sans-serif;
+  --font-serif: Source Serif 4, serif;
+  --font-mono: JetBrains Mono, monospace;
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-error: hsl(var(--error));
+  --color-error-foreground: hsl(var(--error-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+}
+
+.dark {
+  /* Dark mode - Sophisticated Pastel Palette */
+  --background: 220 18% 14%;
+  --foreground: 220 14% 96%;
+  --card: 220 20% 20%;
+  --card-foreground: 220 14% 96%;
+  --popover: 220 20% 22%;
+  --popover-foreground: 220 14% 96%;
+
+  /* Pastel Primary - Soft Lavender-Blue */
+  --primary: 265 72% 65%;
+  --primary-foreground: 220 18% 14%;
+
+  /* Pastel Secondary - Soft Mint Green */
+  --secondary: 160 60% 65%;
+  --secondary-foreground: 220 14% 96%;
+
+  --success: 120 70% 50%;
+  --success-foreground: 220 14% 96%;
+
+  --error: 355 85% 72%;
+  --error-foreground: 0 0% 100%;
+
+  /* Muted - Soft Gray */
+  --muted: 220 12% 42%;
+  --muted-foreground: 220 12% 72%;
+
+  /* Accent - Soft Coral Peach */
+  --accent: 35 90% 68%;
+  --accent-foreground: 220 18% 14%;
+
+  /* Destructive - Soft Red/Coral */
+  --destructive: 355 82% 68%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 220 18% 28%;
+  --input: 220 18% 26%;
+  --ring: 265 72% 65%;
+
+  /* Chart Colors - Beautiful Pastel Set (adjusted for dark) */
+  --chart-1: 265 72% 65%; /* Pastel Purple-Blue */
+  --chart-2: 160 60% 65%; /* Pastel Mint Green */
+  --chart-3: 35 90% 68%; /* Pastel Peach */
+  --chart-4: 355 82% 68%; /* Pastel Coral Red */
+  --chart-5: 195 72% 65%; /* Pastel Sky Blue */
+
+  --sidebar: 220 18% 16%;
+  --sidebar-foreground: 220 14% 96%;
+  --sidebar-primary: 265 72% 65%;
+  --sidebar-primary-foreground: 220 18% 14%;
+  --sidebar-accent: 35 90% 68%;
+  --sidebar-accent-foreground: 220 18% 14%;
+  --sidebar-border: 220 18% 28%;
+  --sidebar-ring: 265 72% 65%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

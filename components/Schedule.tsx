@@ -6,11 +6,17 @@ import { QueueInfo, QueueStates } from "@/types";
 import { useQueueStore } from "@/store/useQueueStore";
 import QueueSelector from "@/components/QueueSelector";
 import { Heading } from "@/components/typography/Heading";
-import QueueDetailCard from "./QueueDetailCard";
+import QueueDetailCard from "@/components/QueueDetailCard";
 
 export default function Schedule() {
-  const { data, fetchData, selectedQueue, setSelectedQueue, analyzedData } =
-    useQueueStore();
+  const {
+    data,
+    fetchData,
+    selectedQueue,
+    setSelectedQueue,
+    analyzedData,
+    loading,
+  } = useQueueStore();
 
   useEffect(() => {
     fetchData();
@@ -20,6 +26,7 @@ export default function Schedule() {
     return () => clearInterval(interval);
   }, [fetchData]);
 
+  if (loading) return <div>Loading...</div>;
   if (!data) return <div>No data</div>;
 
   const queueStates = Object.entries(
@@ -34,15 +41,10 @@ export default function Schedule() {
     return acc;
   }, {} as QueueStates);
 
-  console.log("analyzedData", analyzedData);
-  console.log("selectedQueue", selectedQueue);
-
   return (
     <div className="w-full">
       <div className="flex gap-4 items-center mb-5 justify-between flex-wrap">
-        <Heading level="h2" className="">
-          {data.title}
-        </Heading>
+        <Heading level="h2">{data.title}</Heading>
       </div>
 
       <QueueSelector

@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import { parse } from "csv-parse";
 import { Readable } from "stream";
-import { RawGpvData } from "@/types";
+import { ScheduleRawData } from "@/types";
 
-function transform(data: RawGpvData) {
-  const result = {} as { title: string; [key: string]: string | string[] };
+function transform(data) {
+  console.log("transform", data);
+
+  const result = {} as ScheduleRawData;
   const records = data;
 
   // First item → title
@@ -35,7 +37,7 @@ export async function GET() {
 
     const readableStream = Readable.from([csvText]);
 
-    const records = [];
+    const records: string[] = [];
     const parser = readableStream.pipe(
       parse({
         delimiter: ",",
@@ -48,8 +50,10 @@ export async function GET() {
     }
 
     if (records.length > 0) {
+      const schedule = transform(records);
+
       return NextResponse.json({
-        schedule: transform(records),
+        schedule,
       });
     }
   } catch (error) {

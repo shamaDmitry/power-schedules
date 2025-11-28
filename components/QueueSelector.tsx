@@ -22,7 +22,7 @@ export default function QueueSelector({
       <h3 className="text-sm  text-muted-foreground"></h3>
       <Heading level="h3">Оберіть чергу</Heading>
 
-      <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-12 gap-2">
+      <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-12 gap-2">
         {GROUP_NAMES.map((queue) => {
           const state = queueStates?.[queue];
           const isSelected = selectedQueue === queue;
@@ -49,9 +49,7 @@ export default function QueueSelector({
               <div
                 className="absolute top-1 right-1 w-2 h-2 rounded-full"
                 style={{
-                  backgroundColor: isOn
-                    ? "hsl(var(--chart-2))"
-                    : "hsl(var(--chart-4))",
+                  backgroundColor: isOn ? "var(--chart-2)" : "var(--chart-4)",
                 }}
               />
             </Button>
@@ -63,7 +61,7 @@ export default function QueueSelector({
         <div className="flex items-center gap-2">
           <div
             className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: "hsl(var(--chart-2))" }}
+            style={{ backgroundColor: "var(--chart-2)" }}
           />
           <span>Є світло</span>
         </div>
@@ -71,7 +69,7 @@ export default function QueueSelector({
         <div className="flex items-center gap-2">
           <div
             className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: "hsl(var(--chart-4))" }}
+            style={{ backgroundColor: "var(--chart-4)" }}
           />
           <span>Немає світла</span>
         </div>
