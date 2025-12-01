@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
 import { parse } from "csv-parse";
 import { Readable } from "stream";
-import { ScheduleRawData } from "@/types";
+import { OutageSchedule, ParsedItems, ScheduleRawData } from "@/types";
 
-function transform(data) {
-  console.log("transform", data);
-
-  const result = {} as ScheduleRawData;
+function transform(data: ParsedItems): OutageSchedule {
+  const result: Partial<OutageSchedule> = {};
   const records = data;
 
   // First item → title
@@ -16,11 +14,15 @@ function transform(data) {
   for (let i = 1; i < records.length; i++) {
     const row = records[i][0];
     const [group, timesStr] = row.split(": ");
-    const times = timesStr.split(", ").map((t) => t.trim());
-    result[group] = times;
+    // Check if timesStr exists to prevent crashes on bad data
+    if (timesStr) {
+      const times = timesStr.split(", ").map((t) => t.trim());
+
+      (result[group as keyof OutageSchedule] as string[]) = times;
+    }
   }
 
-  return result;
+  return result as OutageSchedule;
 }
 
 export async function GET() {
@@ -35,9 +37,10 @@ export async function GET() {
 
     const csvText = await response.text();
 
-    const readableStream = Readable.from([csvText]);
+    const readableStream = Readable.from(csvText);
 
-    const records: string[] = [];
+    const records: ParsedItems = [];
+
     const parser = readableStream.pipe(
       parse({
         delimiter: ",",

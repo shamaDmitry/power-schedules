@@ -1,4 +1,10 @@
-import { QueueInfo, ScheduleRawData, Stats } from "@/types";
+import {
+  OutageSchedule,
+  QueueInfo,
+  ScheduleNumbers,
+  ScheduleRawData,
+  Stats,
+} from "@/types";
 import { GROUP_NAMES } from "@/utils/groupNames";
 import { analyzeQueue } from "@/utils/schedule-api";
 import { create } from "zustand";
@@ -11,18 +17,12 @@ interface QueueStore {
   selectedQueue: string;
   data: ScheduleRawData | null;
 
-  analyzedData: QueueInfo | null;
-  setAnalyzedData: (data: ScheduleRawData) => void;
+  analyzedData: { [key in ScheduleNumbers]: QueueInfo } | null;
+  setAnalyzedData: (data: OutageSchedule) => void;
 
   fetchData: () => Promise<void>;
   setSelectedQueue: (queue: string) => void;
-
-  // setStats: (stats: Stats) => void;
 }
-
-// const stats = {
-
-// }
 
 export const useQueueStore = create<QueueStore>()((set, get) => ({
   selectedQueue: "1.1",
@@ -34,14 +34,14 @@ export const useQueueStore = create<QueueStore>()((set, get) => ({
 
   setSelectedQueue: (queue: string) => set({ selectedQueue: queue }),
 
-  setAnalyzedData: (data: ScheduleRawData) => {
+  setAnalyzedData: (data: OutageSchedule) => {
     if (!data || Object.keys(data).length === 0) return {};
 
     const analyzed = GROUP_NAMES.reduce((acc, group) => {
       acc[group] = analyzeQueue(data, group);
 
       return acc;
-    }, {} as Record<string, QueueInfo>);
+    }, {} as { [key in ScheduleNumbers]: QueueInfo });
 
     set({
       stats: {

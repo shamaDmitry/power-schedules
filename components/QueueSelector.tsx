@@ -49,7 +49,7 @@ export default function QueueSelector({
               <div
                 className="absolute top-1 right-1 w-2 h-2 rounded-full"
                 style={{
-                  backgroundColor: isOn ? "var(--chart-2)" : "var(--chart-4)",
+                  backgroundColor: isOn ? "var(--success)" : "var(--error)",
                 }}
               />
             </Button>
@@ -61,7 +61,7 @@ export default function QueueSelector({
         <div className="flex items-center gap-2">
           <div
             className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: "var(--chart-2)" }}
+            style={{ backgroundColor: "var(--success)" }}
           />
           <span>Є світло</span>
         </div>
@@ -69,7 +69,7 @@ export default function QueueSelector({
         <div className="flex items-center gap-2">
           <div
             className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: "var(--chart-4)" }}
+            style={{ backgroundColor: "var(--error)" }}
           />
           <span>Немає світла</span>
         </div>

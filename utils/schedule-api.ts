@@ -1,4 +1,4 @@
-import { GroupKey, ScheduleRawData } from "@/types";
+import { OutageGroup, OutageSchedule, ScheduleNumbers } from "@/types";
 
 function toMinutes(timeStr: string): number {
   const [h, m] = timeStr.split(":").map(Number);
@@ -7,21 +7,26 @@ function toMinutes(timeStr: string): number {
 
 function parseRange(range: string) {
   const [start, end] = range.split("–").map((t) => t.trim());
+
   return [toMinutes(start), toMinutes(end)];
 }
 
 function getTodayMinutes() {
   const d = new Date();
+
   return d.getHours() * 60 + d.getMinutes();
 }
 
 // ГОЛОВНА ФУНКЦІЯ
-export function analyzeQueue(schedule: ScheduleRawData, queue: GroupKey) {
+export function analyzeQueue(schedule: OutageSchedule, queue: ScheduleNumbers) {
   const ranges = schedule[queue] || [];
 
   const minuteRanges = ranges.map(parseRange);
 
   const now = getTodayMinutes();
+
+  console.log("ranges", ranges);
+  console.log("minuteRanges", minuteRanges);
 
   // 1) ЧИ Є СВІТЛО ЗАРАЗ?
   let isOffNow = false;
@@ -78,7 +83,7 @@ export function analyzeQueue(schedule: ScheduleRawData, queue: GroupKey) {
             type: nextEventType,
           }
         : null,
-  };
+  } as OutageGroup;
 }
 
 export const getScheduleData = async () => {

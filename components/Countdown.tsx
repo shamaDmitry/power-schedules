@@ -13,6 +13,7 @@ interface CountdownTimerProps {
   showMinutes?: boolean;
   showSeconds?: boolean;
   showMilliseconds?: boolean;
+  showProgressBar?: boolean;
   onComplete?: () => void;
 }
 
@@ -25,6 +26,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
   showMinutes = true,
   showSeconds = true,
   showMilliseconds = false,
+  showProgressBar = false,
   onComplete,
 }) => {
   // Calculate total starting time in milliseconds (min * 60 * 1000)
@@ -129,7 +131,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
       >
         {isFinished
           ? "Час вийшов"
-          : `${label} до ${event === "on" ? "включення" : "вимкнення"}`}
+          : `${label} до ${event === "on" ? "включення" : "виключення"}`}
       </Heading>
 
       <div
@@ -141,7 +143,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
       </div>
 
       {/* Progress Bar */}
-      {totalInitialMilliseconds > 0 && (
+      {showProgressBar && totalInitialMilliseconds > 0 && (
         <div className="w-full bg-gray-200 rounded-full h-2.5 mt-4 dark:bg-gray-700 overflow-hidden">
           <div
             style={{ width: `${(timeLeft / totalInitialMilliseconds) * 100}%` }}

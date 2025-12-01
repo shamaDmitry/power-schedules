@@ -56,7 +56,7 @@ export default function Schedule() {
       {analyzedData && (
         <QueueDetailCard
           queue={selectedQueue}
-          info={analyzedData[selectedQueue]}
+          info={(analyzedData as Record<string, QueueInfo>)[selectedQueue]}
         />
       )}
 
@@ -66,7 +66,7 @@ export default function Schedule() {
         </Heading>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {Object.entries(analyzedData).map(([queue, info]) => {
+          {Object.entries(analyzedData ?? {}).map(([queue, info]) => {
             return (
               <QueueStatus key={queue} queue={queue} info={info as QueueInfo} />
             );

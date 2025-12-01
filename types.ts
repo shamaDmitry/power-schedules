@@ -18,6 +18,7 @@ export type RawGpvData = RawGpvRow[];
 
 export type TimeRangeString = `${string} - ${string}`;
 export type GroupKey = `${number}.${number}`;
+
 export type ScheduleRawData = {
   title: string;
 } & {
@@ -62,8 +63,40 @@ export interface OutageGroup {
   nextEvent: NextEvent | null;
 }
 
-export type OutageSchedule = Record<string, OutageGroup>;
+export type ScheduleNumbers =
+  | "1.1"
+  | "1.2"
+  | "2.1"
+  | "2.2"
+  | "3.1"
+  | "3.2"
+  | "4.1"
+  | "4.2"
+  | "5.1"
+  | "5.2"
+  | "6.1"
+  | "6.2";
 
-export interface Schedule {
+export interface ISchedule {
   [key: string]: OutageGroup;
+}
+
+type ParsedItem = [string];
+
+export type ParsedItems = ParsedItem[];
+
+export interface OutageSchedule {
+  title: string;
+  "1.1": string[];
+  "1.2": string[];
+  "2.1": string[];
+  "2.2": string[];
+  "3.1": string[];
+  "3.2": string[];
+  "4.1": string[];
+  "4.2": string[];
+  "5.1": string[];
+  "5.2": string[];
+  "6.1": string[];
+  "6.2": string[];
 }
