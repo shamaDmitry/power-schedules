@@ -27,6 +27,7 @@ export default function Schedule() {
   }, [fetchData]);
 
   if (loading) return <div>Loading...</div>;
+
   if (!data) return <div>No data</div>;
 
   const queueStates = Object.entries(

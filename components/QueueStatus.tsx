@@ -1,5 +1,8 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { useQueueStore } from "@/store/useQueueStore";
 import { QueueInfo } from "@/types";
 import { formatMinutes } from "@/utils/formatMinutes";
 import { Power, AlertTriangle, Clock } from "lucide-react";
@@ -18,16 +21,22 @@ export default function QueueStatus({
     off: "Вимкнення",
   };
 
+  const { selectedQueue, setSelectedQueue } = useQueueStore();
+
   return (
     <Card
       className={cn(
-        "bg-card text-card-foreground border-border transition-all",
+        "bg-card text-card-foreground border-border transition-all cursor-pointer",
+        {
+          "bg-primary/10 outline-2 outline-primary": selectedQueue === queue,
+        },
+
         className
       )}
+      onClick={() => setSelectedQueue(queue)}
     >
       <CardContent className="pt-6">
         <div className="space-y-4">
-          {/* Queue Name and Status */}
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-bold ">Черга {queue}</h3>
 

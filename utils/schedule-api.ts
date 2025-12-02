@@ -25,9 +25,6 @@ export function analyzeQueue(schedule: OutageSchedule, queue: ScheduleNumbers) {
 
   const now = getTodayMinutes();
 
-  console.log("ranges", ranges);
-  console.log("minuteRanges", minuteRanges);
-
   // 1) ЧИ Є СВІТЛО ЗАРАЗ?
   let isOffNow = false;
   for (const [start, end] of minuteRanges) {
@@ -72,6 +69,7 @@ export function analyzeQueue(schedule: OutageSchedule, queue: ScheduleNumbers) {
   }
 
   return {
+    ranges,
     isOffNow,
     outagesCount,
     hoursOff: +(totalOffMinutes / 60).toFixed(2),

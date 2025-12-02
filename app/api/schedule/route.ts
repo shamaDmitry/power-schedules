@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { parse } from "csv-parse";
 import { Readable } from "stream";
-import { OutageSchedule, ParsedItems, ScheduleRawData } from "@/types";
+import { OutageSchedule, ParsedItems } from "@/types";
 
 function transform(data: ParsedItems): OutageSchedule {
   const result: Partial<OutageSchedule> = {};

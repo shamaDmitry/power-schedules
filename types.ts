@@ -35,6 +35,7 @@ export interface QueueInfo {
   hoursOff: number;
   hoursOn: number;
   nextEvent: { inMinutes: number; type: string } | null;
+  ranges: string[];
 }
 
 export interface QueueStates {
@@ -61,6 +62,7 @@ export interface OutageGroup {
   hoursOff: number;
   hoursOn: number;
   nextEvent: NextEvent | null;
+  ranges: string[];
 }
 
 export type ScheduleNumbers =
