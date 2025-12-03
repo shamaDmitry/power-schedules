@@ -34,7 +34,7 @@ export default function QueueSelector({
               onClick={() => onQueueChange(queue)}
               variant={isSelected ? "default" : "outline"}
               className={cn(
-                "h-10 text-sm font-semibold transition-all relative group shadow-md dark:hover:text-primary",
+                "h-10 text-sm font-semibold transition-all relative group shadow-md dark:hover:text-primary ",
                 {
                   "bg-primary text-primary-foreground ring-2 ring-primary/50":
                     isSelected,
