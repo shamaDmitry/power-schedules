@@ -2,10 +2,12 @@ import { OutageGroup, OutageSchedule, ScheduleNumbers } from "@/types";
 
 function toMinutes(timeStr: string): number {
   const [h, m] = timeStr.split(":").map(Number);
+
   return h * 60 + m;
 }
 
 function parseRange(range: string) {
+  // const [start, end] = range.split("-").map((t) => t.trim());
   const [start, end] = range.split("–").map((t) => t.trim());
 
   return [toMinutes(start), toMinutes(end)];
@@ -27,6 +29,7 @@ export function analyzeQueue(schedule: OutageSchedule, queue: ScheduleNumbers) {
 
   // 1) ЧИ Є СВІТЛО ЗАРАЗ?
   let isOffNow = false;
+
   for (const [start, end] of minuteRanges) {
     if (now >= start && now < end) {
       isOffNow = true;

@@ -66,9 +66,12 @@ export const useQueueStore = create<QueueStore>()((set, get) => ({
 
     try {
       const res = await fetch("/api/schedule", { cache: "no-store" });
+
       if (!res.ok) throw new Error("Failed to load data");
 
       const data = await res.json();
+
+      console.log("/api/schedule", data);
 
       setAnalyzedData(data.schedule);
       set({ data: data.schedule, loading: false });

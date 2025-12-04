@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { parseArticle } from "@/lib/parser";
 import { sha256 } from "@/lib/hash";
 import { Agent } from "undici";
+import { parseZoeSchedule } from "@/lib/schedule-parser";
+import { isEmptyObject } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -35,11 +37,17 @@ export async function GET() {
   const html = await res.text();
 
   const blocks = parseArticle(html);
+
+  const schedule = parseZoeSchedule(html).filter((item) => {
+    return !isEmptyObject(item.entries);
+  });
+
   const pageHash = sha256(html);
 
   return NextResponse.json({
     pageHash,
-    blocks,
+    // blocks,
+    schedule,
     lastUpdated: new Date().toISOString(),
   });
 }
