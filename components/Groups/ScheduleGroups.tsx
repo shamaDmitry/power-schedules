@@ -103,12 +103,12 @@ export default function ScheduleGroups() {
         />
       </div>
 
-      {analyzedData && (
+      {/* {analyzedData && (
         <QueueDetailCard
           queue={selectedQueue}
           info={analyzedData[selectedQueue]}
         />
-      )}
+      )} */}
 
       <div className="text- opacity-60 mt-6">Оновлено: {data.lastUpdated}</div>
 
