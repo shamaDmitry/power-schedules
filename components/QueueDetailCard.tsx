@@ -21,6 +21,8 @@ export default function QueueDetailCard({
   const totalHours = info.hoursOn + info.hoursOff;
   const onPercentage = ((info.hoursOn / totalHours) * 100).toFixed(1);
 
+  console.log({ queue, info });
+
   return (
     <Card className="border-border shadow-lg p-0 pb-6 overflow-hidden gap-0 mb-6">
       <CardHeader className="bg-linear-to-r from-primary/15 to-secondary/15 border-b border-border p-4 gap-0">
@@ -97,7 +99,7 @@ export default function QueueDetailCard({
                 </div>
               )}
 
-              <Timeline info={info} />
+              {/* <Timeline info={info} /> */}
             </div>
           </div>
 

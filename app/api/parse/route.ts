@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseArticle } from "@/lib/parser";
+// import { parseArticle } from "@/lib/parser";
 import { sha256 } from "@/lib/hash";
 import { Agent } from "undici";
 import { parseZoeSchedule } from "@/lib/schedule-parser";
@@ -36,7 +36,7 @@ export async function GET() {
 
   const html = await res.text();
 
-  const blocks = parseArticle(html);
+  // const blocks = parseArticle(html);
 
   const schedule = parseZoeSchedule(html).filter((item) => {
     return !isEmptyObject(item.entries);

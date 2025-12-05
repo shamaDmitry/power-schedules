@@ -71,9 +71,8 @@ export const useQueueStore = create<QueueStore>()((set, get) => ({
 
       const data = await res.json();
 
-      console.log("/api/schedule", data);
-
       setAnalyzedData(data.schedule);
+
       set({ data: data.schedule, loading: false });
     } catch (err) {
       set({ error: (err as Error).message, loading: false });

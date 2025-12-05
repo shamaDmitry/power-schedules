@@ -1,4 +1,3 @@
-import { OutageSchedule } from "@/types";
 import * as cheerio from "cheerio";
 
 export interface DaySchedule {
@@ -7,7 +6,7 @@ export interface DaySchedule {
   rawDate: string;
   updateTime: string | null;
   title: string;
-  entries: OutageSchedule;
+  entries: Record<string, string[]>;
 }
 
 const MONTH_MAP: Record<string, string> = {
@@ -34,11 +33,9 @@ export function parseZoeSchedule(htmlContent: string): DaySchedule[] {
   // 1. GLOBAL YEAR DETECTION (Sticky Year)
   const fullText = $.root().text();
   const globalYearMatch = fullText.match(/(202[4-9])/);
-  // const currentYear = globalYearMatch
-  //   ? globalYearMatch[1]
-  //   : new Date().getFullYear().toString();
-
-  const currentYear = new Date().getFullYear().toString();
+  const currentYear = globalYearMatch
+    ? globalYearMatch[1]
+    : new Date().getFullYear().toString();
 
   // 2. EXPANDED SELECTOR
   const $elements = $('p, h1, h2, h3, h4, div[dir="auto"], li');
@@ -48,7 +45,7 @@ export function parseZoeSchedule(htmlContent: string): DaySchedule[] {
     .each((_, element) => {
       const $el = $(element);
 
-      if ($el.children('p, div[dir="auto"]').length > 3) return;
+      if ($el.children("p, div, h1, h2, h3").length > 0) return; // TODO: ?????
 
       const text = $el
         .text()
@@ -63,6 +60,10 @@ export function parseZoeSchedule(htmlContent: string): DaySchedule[] {
         /(\d{1,2})\s+(СІЧНЯ|ЛЮТОГО|БЕРЕЗНЯ|КВІТНЯ|ТРАВНЯ|ЧЕРВНЯ|ЛИПНЯ|СЕРПНЯ|ВЕРЕСНЯ|ЖОВТНЯ|ЛИСТОПАДА|ГРУДНЯ)/i
       );
 
+      const isHeaderTag = ["h1", "h2", "h3", "h4"].includes(
+        element.tagName.toLowerCase()
+      );
+
       const hasKeywords =
         text.toUpperCase().includes("ОНОВЛЕНО") ||
         text.toUpperCase().includes("ГПВ") ||
@@ -74,7 +75,7 @@ export function parseZoeSchedule(htmlContent: string): DaySchedule[] {
         $el.find("strong, b").length > 0 ||
         $el.css("font-weight") === "bold";
 
-      if (dateMatch && (isBold || hasKeywords)) {
+      if (dateMatch && (isHeaderTag || hasKeywords || isBold)) {
         const timeMatch = text.match(
           /(?:оновлено|о)\s*(?:о|об)?\s*(\d{1,2}[:;.-]\d{2})/i
         );
@@ -88,14 +89,11 @@ export function parseZoeSchedule(htmlContent: string): DaySchedule[] {
 
         const isoDate = `${entryYear}-${monthStr}-${dayStr}`;
 
-        const newUpdateTime = timeMatch
-          ? timeMatch[1].replace(/[;.]/, ":")
-          : null;
-
         if (
           currentSchedule &&
           currentSchedule.date === isoDate &&
-          currentSchedule.updateTime === newUpdateTime
+          currentSchedule.updateTime ===
+            (timeMatch ? timeMatch[1].replace(/[;.]/, ":") : null)
         ) {
           return;
         }
@@ -111,7 +109,7 @@ export function parseZoeSchedule(htmlContent: string): DaySchedule[] {
           rawDate: `${dayStr} ${monthKey}`,
           updateTime: timeMatch ? timeMatch[1].replace(/[;.]/, ":") : null,
           title: text,
-          entries: {} as OutageSchedule,
+          entries: {},
         };
 
         return;
@@ -171,16 +169,16 @@ export function parseZoeSchedule(htmlContent: string): DaySchedule[] {
 
   // Sort descending by date + time
   return results.sort((a, b) => {
-    const dateA = new Date(a.date).getTime();
-    const dateB = new Date(b.date).getTime();
+    const dateDiff = new Date(b.date).getTime() - new Date(a.date).getTime();
 
-    if (dateB !== dateA) {
-      return dateB - dateA;
+    if (dateDiff !== 0) {
+      return dateDiff;
     }
 
-    const timeA = a.updateTime || "00:00";
-    const timeB = b.updateTime || "00:00";
+    if (a.updateTime && b.updateTime) {
+      return b.updateTime.localeCompare(a.updateTime);
+    }
 
-    return timeB.localeCompare(timeA);
+    return 0;
   });
 }

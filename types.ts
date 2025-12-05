@@ -88,7 +88,7 @@ type ParsedItem = [string];
 export type ParsedItems = ParsedItem[];
 
 export interface OutageSchedule {
-  title: string;
+  // title: string;
   "1.1": string[];
   "1.2": string[];
   "2.1": string[];
@@ -101,4 +101,5 @@ export interface OutageSchedule {
   "5.2": string[];
   "6.1": string[];
   "6.2": string[];
+  [key: string]: string[];
 }

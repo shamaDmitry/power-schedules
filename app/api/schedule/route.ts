@@ -8,7 +8,7 @@ function transform(data: ParsedItems): OutageSchedule {
   const records = data;
 
   // First item → title
-  result.title = records[0][0];
+  // result.title = records[0][0];
 
   // The rest → groups
   for (let i = 1; i < records.length; i++) {

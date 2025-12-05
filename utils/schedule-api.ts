@@ -8,7 +8,8 @@ function toMinutes(timeStr: string): number {
 
 function parseRange(range: string) {
   // const [start, end] = range.split("-").map((t) => t.trim());
-  const [start, end] = range.split("–").map((t) => t.trim());
+
+  const [start, end] = range.split(" - ").map((t) => t.trim());
 
   return [toMinutes(start), toMinutes(end)];
 }

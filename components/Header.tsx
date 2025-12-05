@@ -7,7 +7,7 @@ import { RefreshCw } from "lucide-react";
 import { Heading } from "@/components/typography/Heading";
 
 const Header = () => {
-  const { loading, fetchData } = useQueueStore();
+  const { loading } = useQueueStore();
 
   return (
     <header className="max-w-7xl mx-auto w-full p-4 flex items-center gap-5 justify-between flex-col sm:flex-row">
@@ -21,12 +21,6 @@ const Header = () => {
 
       <div className="flex items-center gap-4">
         <ThemeToggle />
-
-        <Button onClick={fetchData} disabled={loading} className="min-w-40">
-          {loading && <RefreshCw className="animate-spin" />}
-
-          <span className="font-semibold">Оновити данні</span>
-        </Button>
       </div>
     </header>
   );
