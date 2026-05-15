@@ -54,7 +54,9 @@ export default function ScheduleGroups() {
 
       const [entries] = currentSchedule;
 
-      setAnalyzedData(entries.entries);
+      if (entries) {
+        setAnalyzedData(entries.entries);
+      }
     }
   }, [data, date, setAnalyzedData]);
 
